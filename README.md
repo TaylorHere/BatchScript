@@ -1,15 +1,10 @@
 BatchScript
 
-使用多进程+线程池运行你的方法
+使用多进程+线程池+队列运行你的方法
 
 ~~~python
 from master import Master
 from worker import Worker
-
-from queue import Queue as ThreadQueue
-from multiprocessing import Queue as ProcessQueue
-
-from multiprocessing import Process
 import helper 
 
 #启动master

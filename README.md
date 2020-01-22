@@ -7,23 +7,13 @@ from master import Master
 from worker import Worker
 import helper 
 
-#启动master
 master = Master(func=helper.sleep, worker=Worker, result_callback=print)
 master.start()
-for id, (jobs, _) in master.jobs_results.items():
-    for i in range(100):
-        jobs.put(0.01)
+for i in range(1000):
+    master.job_put(0.01)
 
-#处理结果
-master.handle_results()
-#或者
 while True:
-    for id, (_, results) in master.jobs_results.items():
-        try:
-            result = results.get()
-            #do something with your result
-        except Empty:
-            continue
+    print(master.result_get())
 ~~~
 
 采用 多进程启动Worker, worker维护线程池运行函数的方案

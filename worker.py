@@ -22,7 +22,7 @@ class Worker(object):
             items = []
             for i in range(config.WorkerGetBatchSize):
                 try:
-                    items.append(self.jobs.get(timeout=config.threadQueueWaitTimeout))
+                    items.append(self.jobs.get(timeout=config.ThreadQueueWaitTimeout))
                 except Empty:
                     break
             works = []

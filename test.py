@@ -1,10 +1,5 @@
 from master import Master
 from worker import Worker
-
-from queue import Queue as ThreadQueue
-from multiprocessing import Queue as ProcessQueue
-
-from multiprocessing import Process
 import helper 
 
 master = Master(func=helper.sleep, worker=Worker, result_callback=print)

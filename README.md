@@ -21,7 +21,7 @@ while True:
     try:
         for id, (_, results) in self.jobs_results.items():
             result = results.get()
-            self.result_callback(result)
+            #do something with your result
     except Empty:
         continue
 ~~~

@@ -18,12 +18,12 @@ for id, (jobs, _) in master.jobs_results.items():
 master.handle_results()
 #或者
 while True:
-    try:
-        for id, (_, results) in master.jobs_results.items():
+    for id, (_, results) in master.jobs_results.items():
+        try:
             result = results.get()
             #do something with your result
-    except Empty:
-        continue
+        except Empty:
+            continue
 ~~~
 
 采用 多进程启动Worker, worker维护线程池运行函数的方案

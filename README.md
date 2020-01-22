@@ -19,7 +19,7 @@ master.handle_results()
 #或者
 while True:
     try:
-        for id, (_, results) in self.jobs_results.items():
+        for id, (_, results) in master.jobs_results.items():
             result = results.get()
             #do something with your result
     except Empty:

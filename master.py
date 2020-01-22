@@ -68,9 +68,8 @@ class Master(object):
 
     def handle_results(self,):
         while True:
-            for id, (_, results) in self.jobs_results.items():
-                try:
-                    result = results.get()
-                    self.result_callback(result)
-                except Empty:
-                    continue
+            try:
+                result = self.result_get()
+                self.result_callback(result)
+            except Empty:
+                continue

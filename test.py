@@ -4,8 +4,8 @@ import helper
 
 master = Master(func=helper.sleep, worker=Worker, result_callback=print)
 master.start()
-for id, (jobs, _) in master.jobs_results.items():
-    for i in range(100):
-        jobs.put(0.01)
+for i in range(1000):
+    master.job_put(0.01)
 
-master.handle_results()
+while True:
+    print(master.result_get())

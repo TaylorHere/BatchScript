@@ -17,7 +17,6 @@ class Worker(object):
         self.results = results
 
     def start(self):
-        print('worker start')
         while True:
             items = []
             for i in range(config.WorkerGetBatchSize):

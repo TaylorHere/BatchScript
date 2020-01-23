@@ -43,7 +43,7 @@ class Master(object):
             self.workers.append(p)
         print('start {} workers'.format(len(self.workers)))
 
-    class fair_choice():
+    class RoundRobin():
         queue_id = 0
         def get(self, jobs_results):
             if self.queue_id + 1 >= len(jobs_results):
@@ -51,15 +51,14 @@ class Master(object):
             else:
                 self.queue_id += 1
             return self.queue_id
-    fair_choice = fair_choice()
-
-    def job_put(self, job, func=fair_choice.get):
-        jobs, _ = self.jobs_results[func(self.jobs_results)]
-        jobs.put(job)
-
-    def result_get(self, func=fair_choice.get):
-        _, results = self.jobs_results[func(self.jobs_results)]
-        return results.get()
+    jobs_round_robin = RoundRobin()
+    def jobs(self, func=jobs_round_robin.get):
+        _jobs, _ = self.jobs_results[func(self.jobs_results)]
+        return _jobs
+    results_round_robin = RoundRobin()
+    def results(self, func=results_round_robin.get):
+        _, _results = self.jobs_results[func(self.jobs_results)]
+        return _results
 
     def start(self,):
         p = Process(target=self.start_worker)

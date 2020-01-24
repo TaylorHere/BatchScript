@@ -1,6 +1,6 @@
 from master import Master
 from worker import Worker
-import helper 
+import helper
 import config
 import time
 def timer(id):

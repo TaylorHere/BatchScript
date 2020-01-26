@@ -34,8 +34,16 @@ class Worker(object):
             batch_submit = time.time()
             for item in items:
                 works.append(self.executor.submit(self.func, item))
+            work_results = []
             for work in as_completed(works):
-                self.results.put(work.result())
+                if self.config.ResultsBatchSize == 0:
+                    self.results.put(work.result())
+                else:
+                    if len(work_results) < self.config.ResultsBatchSize:
+                        work_results.append(work.result())
+                    else:
+                        self.results.put(work_results)
+                        work_results = []
             batch_completed = time.time()
             if items:
                 job_count = len(items)

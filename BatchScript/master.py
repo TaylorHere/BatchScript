@@ -41,8 +41,8 @@ class Master(object):
     
     def connect(self, another):
         for i in range(another.config.JobsResultsQueueNum):
-            _, results = self.jobs_results[i]
-            self.jobs_results[i] = (another.jobs(), results)
+            jobs, results = self.jobs_results[i]
+            self.jobs_results[i] = (another.results(), results)
     
         
     def start_worker(self,):

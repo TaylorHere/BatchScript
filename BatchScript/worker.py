@@ -40,11 +40,9 @@ class Worker(object):
                 if not self.config.ResultsBatch:
                     self.results.put(work.result())
                 else:
-                    if len(work_results) < len(works):
-                        work_results.append(work.result())
-                    else:
-                        self.results.put(work_results)
-                        work_results = []
+                    work_results.append(work.result())
+            if self.config.ResultsBatch:
+                self.results.put(work_results)
             batch_completed = time.time()
             if items:
                 job_count = len(items)

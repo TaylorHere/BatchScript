@@ -41,7 +41,7 @@ class Worker(object):
                     self.results.put(work.result())
                 else:
                     work_results.append(work.result())
-            if self.config.ResultsBatch:
+            if self.config.ResultsBatch and work_results:
                 self.results.put(work_results)
             batch_completed = time.time()
             if items:

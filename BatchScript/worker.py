@@ -41,5 +41,5 @@ class Worker(object):
                 job_count = len(items)
                 timedelta = batch_completed - batch_submit
                 speed = job_count / timedelta
-                print("Batch completed in {} seconds with {} jobs speed {}/s".format(timedelta, job_count, speed))
+                print("{} Batch completed in {} seconds with {} jobs speed {}/s".format(self.func.__name__, timedelta, job_count, speed))
 

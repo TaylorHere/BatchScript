@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: BatchScript
-Version: 0.0.3
+Version: 0.0.4
 Summary: Python Master-Queue-Worker Structure multiple task framework
 Home-page: https://github.com/TaylorHere/BatchScript
 Author: TaylorHere

@@ -3,7 +3,7 @@ from queue import Empty
 from multiprocessing import Queue as ProcessQueue
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-import BatchScript.config as config
+import BatchScript.config
 import time
 
 class Worker(object):
@@ -13,7 +13,7 @@ class Worker(object):
     executor = None
     results = None
 
-    def __init__(self, func, jobs: ThreadQueue, results: ProcessQueue, config=config):
+    def __init__(self, func, jobs: ThreadQueue, results: ProcessQueue, config=BatchScript.config):
         self.func = func
         self.jobs = jobs
         self.results = results

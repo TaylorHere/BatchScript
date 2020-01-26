@@ -5,7 +5,7 @@ from queue import Queue as ThreadQueue
 from queue import Empty
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
-import BatchScript.config as config
+import BatchScript.config
 
 from BatchScript.worker import Worker
 
@@ -20,7 +20,7 @@ class Master(object):
     result_callback = None
     func = None
 
-    def __init__(self, func, result_callback, worker=Worker, jobsQueueClass=None, resultsQueueClass=None, config=config):
+    def __init__(self, func, result_callback, worker=Worker, jobsQueueClass=None, resultsQueueClass=None, config=BatchScript.config):
         self.worker = worker
         self.result_callback = result_callback
         self.func = func

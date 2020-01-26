@@ -19,8 +19,9 @@ class Master(object):
     jobs_results = {}
     result_callback = None
     func = None
+    config = BatchScript.config
 
-    def __init__(self, func, result_callback, worker=Worker, jobsQueueClass=None, resultsQueueClass=None, config=BatchScript.config):
+    def __init__(self, func, result_callback=None, worker=Worker, jobsQueueClass=None, resultsQueueClass=None, config=None):
         self.worker = worker
         self.result_callback = result_callback
         self.func = func
@@ -46,7 +47,7 @@ class Master(object):
             worker = self.worker(func=self.func, jobs=jobs, results=results, config=self.config)
             p = Process(target=worker.start)
             p.start()
-            self.workers.append(p)
+            self.workers.append(worker)
         print('start {} workers'.format(len(self.workers)))
 
     class RoundRobin():

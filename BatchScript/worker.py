@@ -12,8 +12,9 @@ class Worker(object):
     jobs = None
     executor = None
     results = None
+    config = BatchScript.config
 
-    def __init__(self, func, jobs: ThreadQueue, results: ProcessQueue, config=BatchScript.config):
+    def __init__(self, func, jobs: ThreadQueue, results: ProcessQueue, config=None):
         self.func = func
         self.jobs = jobs
         self.results = results

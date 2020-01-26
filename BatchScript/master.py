@@ -40,7 +40,7 @@ class Master(object):
                 results = self.resultsQueueClass()
                 self.jobs_results[i] = (jobs, results)
             else:
-                jobs, results = self.jobs_results[i]
+                results = self.resultsQueueClass()
                 self.jobs_results[i] = (connection.results(*args, **kwargs), results)
 
     def start_worker(self,):

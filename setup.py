@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="BatchScript",
-    version="0.0.4",
+    version="0.0.5",
     author="TaylorHere",
     author_email="taylorherelee@gmail.com",
     description="Python Master-Queue-Worker Structure multiple task framework",

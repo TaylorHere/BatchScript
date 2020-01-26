@@ -43,7 +43,7 @@ class Master(object):
             if i > len(self.jobs_results):
                 i = len(self.jobs_results) - 1
             jobs, results = self.jobs_results[i]
-            worker = self.worker(func=self.func, jobs=jobs, results=results)
+            worker = self.worker(func=self.func, jobs=jobs, results=results, config=self.config)
             p = Process(target=worker.start)
             p.start()
             self.workers.append(p)

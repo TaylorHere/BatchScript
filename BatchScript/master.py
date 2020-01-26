@@ -76,10 +76,10 @@ class Master(object):
         p.start()
         return p
 
-    def handle_results(self,):
+    def handle_results(self, *args, **kwargs):
         while True:
             try:
-                result = self.result_get()
+                result = self.results.get(*args, **kwargs)
                 self.result_callback(result)
             except Empty:
                 continue

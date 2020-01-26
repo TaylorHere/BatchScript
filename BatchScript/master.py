@@ -38,7 +38,13 @@ class Master(object):
             jobs = self.jobsQueueClass()
             results = self.resultsQueueClass()
             self.jobs_results[i] = (jobs, results)
-
+    
+    def connect(self, another):
+        for i in range(another.config.JobsResultsQueueNum):
+            _, results = self.jobs_results[i]
+            self.jobs_results[i] = (another.jobs(), results)
+    
+        
     def start_worker(self,):
         for i in range(self.config.MaxWorkerSize):
             if i > len(self.jobs_results):

@@ -21,7 +21,7 @@ class Master(object):
     func = None
     config = BatchScript.config
 
-    def __init__(self, func, result_callback=None, worker=Worker, jobsQueueClass=None, resultsQueueClass=None, config=None):
+    def __init__(self, func, connection=None, result_callback=None, worker=Worker, jobsQueueClass=None, resultsQueueClass=None, config=None, *args, **kwargs):
         self.worker = worker
         self.result_callback = result_callback
         self.func = func
@@ -35,16 +35,14 @@ class Master(object):
             self.resultsQueueClass = resultsQueueClass
         self.jobs_results = {}
         for i in range(self.config.JobsResultsQueueNum):
-            jobs = self.jobsQueueClass()
-            results = self.resultsQueueClass()
-            self.jobs_results[i] = (jobs, results)
-    
-    def connect(self, another):
-        for i in range(another.config.JobsResultsQueueNum):
-            jobs, results = self.jobs_results[i]
-            self.jobs_results[i] = (another.results(), results)
-    
-        
+            if not connection:
+                jobs = self.jobsQueueClass()
+                results = self.resultsQueueClass()
+                self.jobs_results[i] = (jobs, results)
+            else:
+                jobs, results = self.jobs_results[i]
+                self.jobs_results[i] = (connection.results(*args, **kwargs), results)
+
     def start_worker(self,):
         for i in range(self.config.MaxWorkerSize):
             if i > len(self.jobs_results):

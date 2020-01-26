@@ -35,11 +35,16 @@ class Worker(object):
             for item in items:
                 works.append(self.executor.submit(self.func, item))
             work_results = []
+            result_batch_size = self.config.ResultsBatchSize
+            if self.config.ResultsBatchSize > len(works):
+                result_batch_size = len(works)
+            else:
+                result_batch_size = self.config.ResultsBatchSize
             for work in as_completed(works):
-                if self.config.ResultsBatchSize == 0:
+                if result_batch_size == 0:
                     self.results.put(work.result())
                 else:
-                    if len(work_results) < self.config.ResultsBatchSize:
+                    if len(work_results) < result_batch_size:
                         work_results.append(work.result())
                     else:
                         self.results.put(work_results)

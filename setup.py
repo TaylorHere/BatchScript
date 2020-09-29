@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.7",
     author="TaylorHere",
     author_email="taylorherelee@gmail.com",
-    description="Python Master-Queue-Worker Structure multiple task framework",
+    description="Python Master-Queue-Worker Structure multiple task tool",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/TaylorHere/BatchScript",

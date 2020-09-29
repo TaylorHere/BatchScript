@@ -2,6 +2,14 @@ BatchScript
 
 使用多进程+线程池+队列运行你的方法
 
+~~~shell
+$> pip3 install BatchScript
+# or
+$> git clone https://github.com/TaylorHere/BatchScript.git && cd BatchScript && pip3 install -e .
+# and you can test it
+$> cd BatchScript && python3 test.py
+~~~
+
 ~~~python
 from master import Master
 from worker import Worker

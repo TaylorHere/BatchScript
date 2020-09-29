@@ -1,4 +1,5 @@
 README.md
+setup.cfg
 setup.py
 BatchScript/__init__.py
 BatchScript/config.py

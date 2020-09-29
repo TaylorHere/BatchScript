@@ -10,4 +10,4 @@ WorkerGetBatchSize = MaxThreadPoolSize  #额定批大小, 如果worker获取数�
 
 JobsResultsQueueNum = MaxWorkerSize #jobs 和 results 队列对的数量, 该数量如果小于worker数量, 则最后一对会被未分配的worker共用, 共用队列可能会导致锁操作增加
 
-ResultsBatch = True #将WorkerGetBatchSize作为一个Result放进Result队列
+ResultsBatch = False #将WorkerGetBatchSize作为一个Result放进Result队列

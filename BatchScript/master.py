@@ -50,6 +50,7 @@ class Master(object):
             jobs, results = self.jobs_results[i]
             worker = self.worker(func=self.func, jobs=jobs, results=results, config=self.config)
             p = Process(target=worker.start)
+            worker.p = p
             p.start()
             self.workers.append(worker)
         print('start {} workers'.format(len(self.workers)))
@@ -73,6 +74,7 @@ class Master(object):
 
     def start(self,):
         p = Process(target=self.start_worker)
+        self.p = p
         p.start()
         return p
 
@@ -83,3 +85,10 @@ class Master(object):
                 self.result_callback(result)
             except Empty:
                 continue
+    
+    def stop(self,):
+        for worker in self.workers:
+            worker.p.terminate()
+            worker.p.join()
+        self.p.terminate()
+        self.p.join()

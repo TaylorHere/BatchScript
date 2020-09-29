@@ -24,18 +24,17 @@ class Worker(object):
 
     def start(self):
         while True:
-            items = []
-            for i in range(self.config.WorkerGetBatchSize):
+            job_datas = []
+            for _ in range(self.config.WorkerGetBatchSize):
                 try:
-                    items.append(self.jobs.get(timeout=self.config.ThreadQueueWaitTimeout))
+                    job_datas.append(self.jobs.get(timeout=self.config.ThreadQueueWaitTimeout))
                 except Empty:
                     break
             works = []
             batch_submit = time.time()
-            for item in items:
-                works.append(self.executor.submit(self.func, item))
+            for job_data in job_datas:
+                works.append(self.executor.submit(self.func, job_data))
             work_results = []
-            self.config.ResultsBatch
             for work in as_completed(works):
                 if not self.config.ResultsBatch:
                     self.results.put(work.result())
@@ -44,9 +43,9 @@ class Worker(object):
             if self.config.ResultsBatch and work_results:
                 self.results.put(work_results)
             batch_completed = time.time()
-            if items:
-                job_count = len(items)
+            if job_datas:
+                job_data_count = len(job_datas)
                 timedelta = batch_completed - batch_submit
-                speed = job_count / timedelta
-                print("{} batch completed in {} seconds with {} jobs speed {}/s".format(self.func.__name__, timedelta, job_count, speed))
+                speed = job_data_count / timedelta
+                print("run \033[32m{}\033[0m in batch completed in \033[32m{:.2f}\033[0m seconds with \033[32m{}\033[0m job_datas speed \033[32m{:.2f}\033[0m/s".format(self.func.__name__, timedelta, job_data_count, speed))
 

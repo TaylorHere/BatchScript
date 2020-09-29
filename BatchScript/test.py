@@ -27,3 +27,5 @@ results = sorted(results, key=lambda x: x[1])
 _, start = results[0]
 _, end = results[-1]
 print(end-start)
+
+master.stop()

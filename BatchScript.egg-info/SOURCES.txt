@@ -6,7 +6,6 @@ BatchScript/config.py
 BatchScript/consumer.py
 BatchScript/helper.py
 BatchScript/master.py
-BatchScript/test.py
 BatchScript/worker.py
 BatchScript.egg-info/PKG-INFO
 BatchScript.egg-info/SOURCES.txt

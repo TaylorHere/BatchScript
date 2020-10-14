@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: BatchScript
-Version: 0.0.7
+Version: 0.0.8
 Summary: Python Master-Queue-Worker Structure multiple task tool
 Home-page: https://github.com/TaylorHere/BatchScript
 Author: TaylorHere
@@ -9,6 +9,14 @@ License: UNKNOWN
 Description: BatchScript
         
         使用多进程+线程池+队列运行你的方法
+        
+        ~~~shell
+        $> pip3 install BatchScript
+        # or
+        $> git clone https://github.com/TaylorHere/BatchScript.git && cd BatchScript && pip3 install -e .
+        # and you can test it
+        $> cd BatchScript && python3 test.py
+        ~~~
         
         ~~~python
         from master import Master

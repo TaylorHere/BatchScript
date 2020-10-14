@@ -4,10 +4,12 @@ from multiprocessing import Process
 from queue import Queue as ThreadQueue
 from queue import Empty
 from concurrent.futures import ProcessPoolExecutor, as_completed
+import signal
 
 import BatchScript.config
 
 from BatchScript.worker import Worker
+
 
 
 class Master(object):
@@ -50,8 +52,8 @@ class Master(object):
             jobs, results = self.jobs_results[i]
             worker = self.worker(func=self.func, jobs=jobs, results=results, config=self.config)
             p = Process(target=worker.start)
-            worker.p = p
             p.start()
+            worker.p = p
             self.workers.append(worker)
         print('start {} workers'.format(len(self.workers)))
 
@@ -63,20 +65,19 @@ class Master(object):
             else:
                 self.queue_id += 1
             return self.queue_id
+
     jobs_round_robin = RoundRobin()
     def jobs(self, func=jobs_round_robin.get):
         _jobs, _ = self.jobs_results[func(self.jobs_results)]
         return _jobs
+
     results_round_robin = RoundRobin()
     def results(self, func=results_round_robin.get):
         _, _results = self.jobs_results[func(self.jobs_results)]
         return _results
 
     def start(self,):
-        p = Process(target=self.start_worker)
-        self.p = p
-        p.start()
-        return p
+        self.start_worker()
 
     def handle_results(self, *args, **kwargs):
         while True:
@@ -90,5 +91,4 @@ class Master(object):
         for worker in self.workers:
             worker.p.terminate()
             worker.p.join()
-        self.p.terminate()
-        self.p.join()
+            print(f"worker {worker.p.pid}, closed")

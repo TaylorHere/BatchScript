@@ -82,7 +82,7 @@ class Master(object):
     def handle_results(self, *args, **kwargs):
         while True:
             try:
-                result = self.results.get(*args, **kwargs)
+                result = self.results().get(*args, **kwargs)
                 self.result_callback(result)
             except Empty:
                 continue
